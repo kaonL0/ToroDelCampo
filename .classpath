@@ -31,6 +31,5 @@
 	<classpathentry kind="lib" path="lib/JModPlayer.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
 	<classpathentry kind="src" path="JBox2d"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/TexturePacking"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
