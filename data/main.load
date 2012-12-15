@@ -10,6 +10,7 @@
 	<!-- toro -->	
 	<image key="BACKGROUND" file="Images/background1.png"  />
 	<spritesheet key="TORO" file="Animations/taureau1.png" width="250" height="512"/>
+	<spritesheet key="HUMAIN" file="Animations/course1.png" width="406" height="538"/>
 	<!-- fonts -->
 	<angelcodefont key="ARABOLICA" fontFile="Font/arabolic.fnt"
 		imageFile="Font/arabolic.png" />

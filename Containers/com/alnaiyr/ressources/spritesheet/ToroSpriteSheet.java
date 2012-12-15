@@ -7,7 +7,8 @@ import com.alnaiyr.display.renderables.render.rewrite.SpriteSheet;
  *@version 1.0
  */
 public enum ToroSpriteSheet{
- TORO; 
+ TORO,
+ HUMAIN; 
 
 public SpriteSheet spritesheet; 
 

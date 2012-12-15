@@ -49,6 +49,7 @@ public class GameplayState extends State {
 	 */
 
 	private AnimationEntity		toro;
+	private Animation			perso;
 	private GraphicEntity		back;
 
 	public SlickDebugDraw		debug;
@@ -103,6 +104,9 @@ public class GameplayState extends State {
 
 		final Animation mation = new Animation(
 				ToroSpriteSheet.TORO.spritesheet, 200).getScaledCopy(.4f);
+		perso = new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 200)
+				.getScaledCopy(.4f);
+
 		toro = new AnimationEntity(new Cartesian(0f, .8f, true), mation);
 		back = new DrawEntity(new Vector2f(-.38f, 0, true), false,
 				ToroImage.BACKGROUND.image.getScaledCopy(4));
@@ -165,6 +169,9 @@ public class GameplayState extends State {
 		fd.shape = shape;
 
 		ground.createFixture(fd);
+		lContainer.getLayer(0).toRender.add(new AnimationEntity(bd.position,
+				new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 200)
+						.getScaledCopy(.4f)));
 	}
 
 	@Override
