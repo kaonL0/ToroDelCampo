@@ -15,10 +15,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.alnaiyr.ai.updater.condition.RandomLuckCondition;
 import com.alnaiyr.coordinates.dynamic.Cartesian;
 import com.alnaiyr.display.GraphicEntity;
 import com.alnaiyr.display.impl.advanced.AnimationEntity;
-import com.alnaiyr.display.impl.advanced.NullEntity;
 import com.alnaiyr.display.impl.basic.DrawEntity;
 import com.alnaiyr.display.renderables.render.rewrite.Animation;
 import com.alnaiyr.generator.layers.LayerFactory;
@@ -48,17 +48,19 @@ public class GameplayState extends State {
 	 * *************************************************
 	 */
 
-	private AnimationEntity	toro;
-	private GraphicEntity	back;
+	private AnimationEntity		toro;
+	private GraphicEntity		back;
 
-	public SlickDebugDraw	debug;
-	public World			world;
+	public SlickDebugDraw		debug;
+	public World				world;
 
-	public Body				ground;
-	public Body				surf;
+	public Body					ground;
+	public Body					surf;
 
-	public float			hz			= 60;
-	public float			elapsedTime	= 0;
+	public float				hz			= 60;
+	public float				elapsedTime	= 0;
+
+	private RandomLuckCondition	rnd;
 
 	/* **********************************************
 	 * 
@@ -102,18 +104,18 @@ public class GameplayState extends State {
 		final Animation mation = new Animation(
 				ToroSpriteSheet.TORO.spritesheet, 200).getScaledCopy(.4f);
 		toro = new AnimationEntity(new Cartesian(0f, .8f, true), mation);
-		back = new DrawEntity(ToroImage.BACKGROUND.image);
+		back = new DrawEntity(new Vector2f(-.38f, 0, true), false,
+				ToroImage.BACKGROUND.image.getScaledCopy(4));
 
-		LayerFactory.getInstance().addToLayer(30, NullEntity.instance);
+		LayerFactory.getInstance().addToLayer(50, back);
 		LayerFactory.getInstance().addToLayer(0, toro);
 		LayerFactory.getInstance().setDepth(50);
 		LayerFactory.getInstance().setReference(0);
 		LayerFactory.getInstance().setReferenceCoordinate(toro.coord);
 
 		debug = new SlickDebugDraw(container);
-		// debug.getViewportTranform().setCenter(400, 300);
 		debug.getViewportTranform().setExtents(new Vec2(1920, 1080));
-		debug.getViewportTranform().setCamera(9.6f / 6, -5.4f / 6, 600);
+		debug.getViewportTranform().setCamera(9.6f * 2, -5.4f * 2, 50);
 
 		debug.getViewportTranform().setYFlip(true);
 
@@ -128,17 +130,18 @@ public class GameplayState extends State {
 
 		surf = world.createBody(bd);
 		final EdgeShape sh = new EdgeShape();
-		// // sh.m_radius = 50;
-		// sh.set(new Vec2(-1, 0), new Vec2(1, 0));
+		// sh.m_radius = 50;
+		sh.set(new Vec2(-10, -1), new Vec2(10, -1));
 
-		// surf.createFixture(sh, 0);
+		surf.createFixture(sh, 0);
 
 		surf.setTransform(new Vec2(-1, -3), 0);
 
 		final Body second = world.createBody(bd);
 
-		// sh.set(new Vec2(1, 1), new Vec2(-1, 1));
-		// second.createFixture(sh, 2f);
+		sh.set(new Vec2(1, -1), new Vec2(-1, -1));
+		second.createFixture(sh, 2f);
+		rnd = new RandomLuckCondition(1, 10);
 
 	}
 
@@ -156,8 +159,8 @@ public class GameplayState extends State {
 		ground = world.createBody(bd);
 
 		final PolygonShape shape = new PolygonShape();
-		shape.setAsBox(.03f, .03f);
-		shape.setRadius(.03f);
+		shape.setAsBox(.8f, .8f);
+		// shape.setRadius(.06f);
 
 		fd.shape = shape;
 
@@ -178,7 +181,8 @@ public class GameplayState extends State {
 
 		elapsedTime += delta;
 
-		spawnShape();
+		if (rnd.getCondition())
+			spawnShape();
 
 		if (1 / elapsedTime <= hz) {
 			world.step(1 / hz, 3, 3);

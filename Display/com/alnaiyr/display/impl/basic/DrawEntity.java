@@ -20,7 +20,7 @@ import com.alnaiyr.display.renderables.DimensionDrawable;
  */
 public class DrawEntity extends GraphicEntity {
 
-	public DimensionDrawable toRender;
+	public DimensionDrawable	toRender;
 
 	/* *************************
 	 * 
@@ -33,7 +33,17 @@ public class DrawEntity extends GraphicEntity {
 	 * @param coord
 	 * @param toRender
 	 */
-	public DrawEntity(PlanVector coord, DimensionDrawable toRender) {
+	public DrawEntity(final PlanVector coord, final boolean centered,
+			final DimensionDrawable toRender) {
+		super(coord, centered, toRender.width(), toRender.height());
+		this.toRender = toRender;
+	}
+
+	/**
+	 * @param coord
+	 * @param toRender
+	 */
+	public DrawEntity(final PlanVector coord, final DimensionDrawable toRender) {
 		super(coord, true, toRender.width(), toRender.height());
 		this.toRender = toRender;
 	}
@@ -44,7 +54,7 @@ public class DrawEntity extends GraphicEntity {
 	 * @param coord
 	 * @param toRender
 	 */
-	public DrawEntity(DimensionDrawable toRender) {
+	public DrawEntity(final DimensionDrawable toRender) {
 		super(null, true, toRender.width(), toRender.height());
 		this.toRender = toRender;
 	}
@@ -56,7 +66,7 @@ public class DrawEntity extends GraphicEntity {
 	 *---------------------------------*/
 
 	@Override
-	public void render(Graphics g, GameContainer container) {
+	public void render(final Graphics g, final GameContainer container) {
 		toRender.draw(coord);
 	}
 
@@ -98,12 +108,12 @@ public class DrawEntity extends GraphicEntity {
 	 * 
 	 * @param toRender
 	 */
-	public void setToRender(DimensionDrawable toRender) {
+	public void setToRender(final DimensionDrawable toRender) {
 		this.toRender = toRender;
 	}
 
 	@Override
-	public void gUpdate(int delta, boolean condition) {
+	public void gUpdate(final int delta, final boolean condition) {
 	}
 
 }
