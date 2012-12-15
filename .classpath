@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="Utilities"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Actors"/>
 	<classpathentry kind="src" path="Display"/>
 	<classpathentry kind="src" path="Controllers"/>
