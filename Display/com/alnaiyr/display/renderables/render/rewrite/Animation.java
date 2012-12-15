@@ -509,5 +509,4 @@ public class Animation extends org.newdawn.slick.Animation implements
 	public DataType getType() {
 		return DataType.ANIMATION;
 	}
-
 }
