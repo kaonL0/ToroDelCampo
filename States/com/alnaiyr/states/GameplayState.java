@@ -114,7 +114,6 @@ public class GameplayState extends State {
 		LayerFactory.getInstance().setReferenceCoordinate(toro.coord);
 
 		debug = new SlickDebugDraw(container);
-		debug.getViewportTranform().setCenter(800, 600);
 		debug.getViewportTranform().setExtents(new Vec2(1920, 1080));
 		debug.getViewportTranform().setCamera(9.6f * 2, -5.4f * 2, 50);
 
