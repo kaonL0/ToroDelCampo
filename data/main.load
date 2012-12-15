@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!-- basedir -->
+	<basedir path="data" package="Toro"/>
+	<!-- GUI -->
+	<image key="CHECKBOX1" file="GUI/Buttons/CheckBox1.png" />
+	<image key="CHECK1" file="GUI/Buttons/CheckBoxCheck1.png"/>
+	<image key="GUIARROW" file="GUI/Images/Arrow.png"  />
+	<image key="GUISHAPE" file="GUI/Images/Shape.png"  />
+	<!-- toro -->	
+	<image key="BACKGROUND" file="Images/background1.png"  />
+	<spritesheet key="TORO" file="Animations/taureau1.png" width="250" height="512"/>
+	<!-- fonts -->
+	<angelcodefont key="ARABOLICA" fontFile="Font/arabolic.fnt"
+		imageFile="Font/arabolic.png" />
+	<angelcodefont key="SQUARE" fontFile="Font/SquaredDisplay.fnt"
+		imageFile="Font/SquaredDisplay_0.png" />	
+		
+</resources>
