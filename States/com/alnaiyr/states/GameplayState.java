@@ -15,10 +15,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.alnaiyr.ai.updater.condition.RandomLuckCondition;
 import com.alnaiyr.coordinates.dynamic.Cartesian;
 import com.alnaiyr.display.GraphicEntity;
 import com.alnaiyr.display.impl.advanced.AnimationEntity;
-import com.alnaiyr.display.impl.advanced.NullEntity;
 import com.alnaiyr.display.impl.basic.DrawEntity;
 import com.alnaiyr.display.renderables.render.rewrite.Animation;
 import com.alnaiyr.generator.layers.LayerFactory;
@@ -48,17 +48,19 @@ public class GameplayState extends State {
 	 * *************************************************
 	 */
 
-	private AnimationEntity	toro;
-	private GraphicEntity	back;
+	private AnimationEntity		toro;
+	private GraphicEntity		back;
 
-	public SlickDebugDraw	debug;
-	public World			world;
+	public SlickDebugDraw		debug;
+	public World				world;
 
-	public Body				ground;
-	public Body				surf;
+	public Body					ground;
+	public Body					surf;
 
-	public float			hz			= 60;
-	public float			elapsedTime	= 0;
+	public float				hz			= 60;
+	public float				elapsedTime	= 0;
+
+	private RandomLuckCondition	rnd;
 
 	/* **********************************************
 	 * 
@@ -102,9 +104,10 @@ public class GameplayState extends State {
 		final Animation mation = new Animation(
 				ToroSpriteSheet.TORO.spritesheet, 200).getScaledCopy(.4f);
 		toro = new AnimationEntity(new Cartesian(0f, .8f, true), mation);
-		back = new DrawEntity(ToroImage.BACKGROUND.image);
+		back = new DrawEntity(new Vector2f(.3f, 0, true), false,
+				ToroImage.BACKGROUND.image);
 
-		LayerFactory.getInstance().addToLayer(30, NullEntity.instance);
+		LayerFactory.getInstance().addToLayer(50, back);
 		LayerFactory.getInstance().addToLayer(0, toro);
 		LayerFactory.getInstance().setDepth(50);
 		LayerFactory.getInstance().setReference(0);
@@ -120,7 +123,7 @@ public class GameplayState extends State {
 		debug.clearFlags(DebugDraw.e_centerOfMassBit);
 		debug.appendFlags(DebugDraw.e_shapeBit);
 
-		world = new World(new Vec2(0, -5f));
+		world = new World(new Vec2(0, -.2f));
 		world.setDebugDraw(debug);
 
 		final BodyDef bd = new BodyDef();
@@ -139,6 +142,7 @@ public class GameplayState extends State {
 
 		// sh.set(new Vec2(1, 1), new Vec2(-1, 1));
 		// second.createFixture(sh, 2f);
+		rnd = new RandomLuckCondition(1, 30);
 
 	}
 
@@ -178,7 +182,8 @@ public class GameplayState extends State {
 
 		elapsedTime += delta;
 
-		spawnShape();
+		if (rnd.getCondition())
+			spawnShape();
 
 		if (1 / elapsedTime <= hz) {
 			world.step(1 / hz, 3, 3);
