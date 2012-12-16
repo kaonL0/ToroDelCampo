@@ -6,7 +6,6 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
@@ -22,7 +21,7 @@ import com.alnaiyr.ressources.spritesheet.ToroSpriteSheet;
 public class Taureau extends JboxEntity {
 
 	// Direction direction;
-	private final Animation	toro;
+	private final Animation toro;
 
 	public Taureau(final PlanVector coord) {
 		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200)
@@ -72,37 +71,39 @@ public class Taureau extends JboxEntity {
 
 		toro.update(delta);
 		body.setLinearVelocity(new Vector2f(0, 1f));
-		// int ID_CONTROLEUR = 0;
-		// Input input = gc.getInput();
-		// if (input.isControllerLeft(ID_CONTROLEUR)
-		// && input.isButton1Pressed(ID_CONTROLEUR)) {
-		// // Feu !
-		// }
 
-		// swjgl
-		if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
-			System.out.println("Left Released");
-		}
-
-		//
 		final GameContainer container = IV.container;
 		final Input input = container.getInput();
-
-		if (input.isKeyPressed(Commands.input.KEY_LEFT)) {
-			moveLeft();
-		}
-		if (input.isKeyPressed(Commands.input.KEY_RIGHT)) {
-			moveRight();
-		}
-		if (input.isKeyPressed(Commands.input.KEY_UP)) {
-			moveUp();
-		}
-		// System.out.println("gUpdate");
-
+		if (input.isKeyPressed(Commands.input.KEY_LEFT))
+			move(Commands.input.KEY_LEFT);
+		if (input.isKeyPressed(Commands.input.KEY_RIGHT))
+			move(Commands.input.KEY_RIGHT);
 	}
 
-	public void moveRight() {
+	public void move(int direction) {
+		// box
+		System.out.println("");
+		Vec2 vitesse = this.body.getLinearVelocity();
+		// System.out.println("v:"+vitesse.toString());
 
+		float pasLateral = 3.0f;
+		if (direction == Commands.input.KEY_LEFT) {
+			// vitesse.set(vitesse.x+pasLateral, vitesse.y);
+			vitesse = (Vec2) vitesse.addLocal(pasLateral, 0);
+		} else if (direction == Commands.input.KEY_RIGHT) {
+			// vitesse.set(vitesse.x-pasLateral, vitesse.y);
+			vitesse = (Vec2) vitesse.addLocal(-pasLateral, 0);
+		}
+
+		// System.out.println("positionAnim:"+pos2.toString());
+		System.out.println("v2:" + vitesse.toString());
+		this.body.setLinearVelocity(vitesse);
+
+		// PlanVector pos2 = this.coord.getValue();
+		// System.out.println("positionAnim:"+pos2.toString());
+
+		// PlanVector pos = this.body.getPosition();
+		// System.out.println("pos:"+pos.toString());
 	}
 
 }

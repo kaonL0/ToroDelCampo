@@ -13,7 +13,7 @@ public class Mur extends Obstacle {
 
 	public Mur(final PlanVector coord, final Scene scene, final Body body,
 			final DimensionDrawable drawable) {
-		super(coord, body, drawable);
+		super(coord, scene, body, drawable);
 
 	}
 
