@@ -1,5 +1,6 @@
 package torodelcampo.scene;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,6 +53,8 @@ public class Scene extends GraphicEntity {
 		}
 
 		personnages = Arrays.asList(personnage);
+		if (personnage == null)
+			personnages = new ArrayList<>();
 
 	}
 
@@ -78,6 +81,13 @@ public class Scene extends GraphicEntity {
 		for (final Personnage pers : personnages) {
 			pers.gUpdate(delta, true);
 		}
+
+	}
+
+	@Override
+	public Scene clone() {
+
+		return new Scene(back, segs.toArray(new Segment[segs.size()]).clone());
 
 	}
 

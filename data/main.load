@@ -8,7 +8,12 @@
 	<image key="GUIARROW" file="GUI/Images/Arrow.png"  />
 	<image key="GUISHAPE" file="GUI/Images/Shape.png"  />
 	<!-- toro -->	
-	<image key="BACKGROUND" file="Images/background1.png"  />
+	<image key="BACKGROUND0" file="Images/Background00.png"  />
+	<image key="BACKGROUND1" file="Images/Background10.png"  />
+	<image key="BACKGROUND2" file="Images/Background20.png"  />
+	<image key="BACKGROUND3" file="Images/Background30.png"  />
+	<image key="BACKGROUND4" file="Images/Background40.png"  />
+	<image key="BACKGROUND5" file="Images/Background50.png"  />
 	<spritesheet key="TORO" file="Animations/taureau1.png" width="250" height="512"/>
 	<spritesheet key="HUMAIN" file="Animations/course1.png" width="406" height="538"/>
 	<!-- fonts -->

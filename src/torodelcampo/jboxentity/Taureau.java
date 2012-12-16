@@ -21,11 +21,11 @@ import com.alnaiyr.ressources.spritesheet.ToroSpriteSheet;
 public class Taureau extends JboxEntity {
 
 	// Direction direction;
-	private final Animation toro;
+	private final Animation	toro;
 
 	public Taureau(final PlanVector coord) {
 		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200)
-				.getScaledCopy(.4f));
+				.getScaledCopy(.2f));
 		toro = (Animation) super.drawable;
 
 		final FixtureDef fd = new FixtureDef();
@@ -38,7 +38,6 @@ public class Taureau extends JboxEntity {
 		bd.position = (Vec2) SceneCreator.debug.getScreenToWorld(coord.x(),
 				coord.y());
 
-		bd.angle = 5f;
 		final Body tor = SceneCreator.world.createBody(bd);
 
 		final PolygonShape shape = new PolygonShape();
@@ -74,30 +73,31 @@ public class Taureau extends JboxEntity {
 
 		final GameContainer container = IV.container;
 		final Input input = container.getInput();
-		if (input.isKeyPressed(Commands.input.KEY_LEFT))
+		if (input.isKeyDown(Commands.input.KEY_LEFT))
 			move(Commands.input.KEY_LEFT);
-		if (input.isKeyPressed(Commands.input.KEY_RIGHT))
+		if (input.isKeyDown(Commands.input.KEY_RIGHT))
 			move(Commands.input.KEY_RIGHT);
 	}
 
-	public void move(int direction) {
+	public void move(final int direction) {
 		// box
 		System.out.println("");
-		Vec2 vitesse = this.body.getLinearVelocity();
+		Vec2 vitesse = body.getLinearVelocity();
 		// System.out.println("v:"+vitesse.toString());
 
-		float pasLateral = 3.0f;
+		final float pasLateral = 3.0f;
 		if (direction == Commands.input.KEY_LEFT) {
 			// vitesse.set(vitesse.x+pasLateral, vitesse.y);
-			vitesse = (Vec2) vitesse.addLocal(pasLateral, 0);
-		} else if (direction == Commands.input.KEY_RIGHT) {
-			// vitesse.set(vitesse.x-pasLateral, vitesse.y);
 			vitesse = (Vec2) vitesse.addLocal(-pasLateral, 0);
+		} else if (direction == Commands.input.KEY_RIGHT) {
+			vitesse = (Vec2) vitesse.addLocal(pasLateral, 0);
+			// vitesse.set(vitesse.x-pasLateral, vitesse.y);
+
 		}
 
 		// System.out.println("positionAnim:"+pos2.toString());
 		System.out.println("v2:" + vitesse.toString());
-		this.body.setLinearVelocity(vitesse);
+		body.setLinearVelocity(vitesse);
 
 		// PlanVector pos2 = this.coord.getValue();
 		// System.out.println("positionAnim:"+pos2.toString());

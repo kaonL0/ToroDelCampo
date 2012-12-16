@@ -109,7 +109,7 @@ public class GameplayState extends State {
 
 		toro = new AnimationEntity(new Cartesian(.5f, .5f, true), mation);
 		back = new DrawEntity(new Vector2f(0f, 0, true), false,
-				ToroImage.BACKGROUND.image.getScaledCopy(4));
+				ToroImage.BACKGROUND0.image.getScaledCopy(4));
 
 		LayerFactory.getInstance().addToLayer(40, back);
 		LayerFactory.getInstance().addToLayer(0, toro);

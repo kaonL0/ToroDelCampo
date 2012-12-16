@@ -11,11 +11,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
+import torodelcampo.jboxentity.Personnage;
 import torodelcampo.jboxentity.Taureau;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.GraphicEntity;
 import com.alnaiyr.display.camera.Focus;
+import com.alnaiyr.general.IV;
+import com.alnaiyr.math.MathU;
 import com.alnaiyr.states.GameplayState2;
 import com.alnaiyr.states.State;
 import com.alnaiyr.utilities.debug.jbox2D.SlickDebugDraw;
@@ -37,6 +40,8 @@ public class SceneCreator extends GraphicEntity {
 
 	private Focus					focus;
 
+	private PlanVector				lastGenerated;
+
 	public SceneCreator(final PlanVector coord, final float width,
 			final float height, final State state) {
 		super(coord, width, height);
@@ -53,12 +58,39 @@ public class SceneCreator extends GraphicEntity {
 
 		// taureau = new Taureau();
 		currentScenes = new ArrayList<Scene>();
-		currentScenes.add(0, EnumScene.SCENE1.scene);
-		currentScenes.get(0).init(new Vector2f(.3f, 0, true));
+		currentScenes.add(EnumScene.SCENE1.scene);
+		currentScenes.add(EnumScene.SCENE1.scene.clone());
+		currentScenes.add(EnumScene.SCENE1.scene.clone());
+
+		currentScenes.get(2).init(
+				new Vector2f(-.026f, 1f, true),
+				createPersonnage(new Vector2f(.5f, 1f, true), new Vector2f(.6f,
+						1f, true), 20));
+		currentScenes.get(1).init(
+				new Vector2f(-.026f, -1f, true),
+				createPersonnage(new Vector2f(.5f, -1f, true), new Vector2f(
+						.6f, -1f, true), 20));
+		currentScenes.get(0).init(
+				new Vector2f(-.026f, 0, true),
+				createPersonnage(new Vector2f(.5f, 0f, true), new Vector2f(.6f,
+						0f, true), 20));
+
+		lastGenerated = new Vector2f(-.026f, -1f, true);
 
 		taureau = new Taureau(new Vector2f(.5f, .8f, true));
 
-		focus = new Focus(taureau.coord);
+		focus = new Focus(taureau.coord, 2);
+	}
+
+	public Personnage[] createPersonnage(final PlanVector from,
+			final PlanVector to, final int number) {
+		final Personnage[] temp = new Personnage[number];
+
+		for (int i = 0; i < temp.length; i++) {
+			temp[i] = new Personnage(new Vec2(MathU.random(from.x(), to.x()),
+					MathU.random(from.y(), to.y())), MathU.random(.1f, .2f));
+		}
+		return temp;
 	}
 
 	/**
@@ -74,11 +106,19 @@ public class SceneCreator extends GraphicEntity {
 	}
 
 	void createScene() {
-
-	}
-
-	void createNextScenes() {
-
+		if (focus.coord.y() - IV.vWidth < lastGenerated.y()) {
+			currentScenes.add(EnumScene.values()[MathU.random(0,
+					EnumScene.values().length - 1)].scene.clone());
+			currentScenes.get(currentScenes.size() - 1).init(
+					new Vector2f(-.026f * IV.vWidth, lastGenerated.y() - 1080,
+							false),
+					createPersonnage(new Vector2f(.5f * IV.vWidth,
+							lastGenerated.y() - 1080, false), new Vector2f(
+							.6f * IV.vWidth, lastGenerated.y() - 1080, false),
+							20));
+			lastGenerated.addLocal(new Vec2(0, -1080));
+			// currentScenes.remove(0);
+		}
 	}
 
 	void deleteScene() {
@@ -126,6 +166,8 @@ public class SceneCreator extends GraphicEntity {
 		for (final Scene scene : currentScenes)
 			scene.gUpdate(delta, true);
 		taureau.gUpdate(delta, true);
+
+		createScene();
 	}
 
 	@Override
