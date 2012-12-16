@@ -10,14 +10,16 @@ import com.alnaiyr.generator.layers.LayerFactory;
 import com.alnaiyr.ressources.image.ToroImage;
 
 public class Scene {
-	List<Personnage> personnages;
-	List<Obstacle> obstacles;
-	GraphicEntity back;
+
+	List<Personnage>	personnages;
+	List<Obstacle>		obstacles;
+	GraphicEntity		back;
 
 	Scene() {
 
-		back = new DrawEntity(new Vector2f(-.38f, 0, true), false, ToroImage.BACKGROUND.image.getScaledCopy(4));
+		back = new DrawEntity(new Vector2f(-.38f, 0, true), false,
+				ToroImage.BACKGROUND.image.getScaledCopy(4));
 		LayerFactory.getInstance().addToLayer(50, back);
-		
+
 	}
 }

@@ -7,6 +7,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import torodelcampo.SceneCreator;
 
+import com.alnaiyr.display.impl.advanced.NullEntity;
+import com.alnaiyr.generator.layers.LayerFactory;
+
 /**
  * where the game takes place, so I guess the most important
  * 
@@ -33,8 +36,8 @@ public class GameplayState2 extends State {
 	// public World world;
 	// public float elapsedTime = 0;
 	// private RandomLuckCondition rnd;
-	
-	SceneCreator sceneCreator = null;
+
+	SceneCreator	sceneCreator	= null;
 
 	/* **********************************************
 	 * 
@@ -74,7 +77,11 @@ public class GameplayState2 extends State {
 	@Override
 	public void initLayerable(final GameContainer container,
 			final StateBasedGame game) throws SlickException {
+		LayerFactory.getInstance().addToLayer(0, NullEntity.instance);
+		LayerFactory.getInstance().setDepth(50);
+		LayerFactory.getInstance().setReference(0);
 		sceneCreator = new SceneCreator(this, container);
+
 	}
 
 	@Override

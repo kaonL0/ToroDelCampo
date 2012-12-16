@@ -1,38 +1,79 @@
 package torodelcampo;
 
+import org.jbox2d.callbacks.DebugDraw;
+import org.jbox2d.dynamics.Body;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Vector2f;
 
-import com.alnaiyr.coordinates.dynamic.Cartesian;
+import com.alnaiyr.commands.Commands;
+import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.impl.advanced.AnimationEntity;
-import com.alnaiyr.display.renderables.render.rewrite.Animation;
+import com.alnaiyr.display.renderables.DimensionDrawable;
+import com.alnaiyr.general.IV;
 import com.alnaiyr.generator.layers.LayerFactory;
-import com.alnaiyr.ressources.spritesheet.ToroSpriteSheet;
 
-public class Taureau extends ObjetScene {
+public class Taureau extends JboxEntity {
+
 	// Direction direction;
-	private AnimationEntity toro;
+	private final AnimationEntity	toro;
 
-	public Taureau() {
-		final Animation mation = new Animation(
-				ToroSpriteSheet.TORO.spritesheet, 200).getScaledCopy(.4f);
-		toro = new AnimationEntity(new Cartesian(0f, .8f, true), mation);
-
-		LayerFactory.getInstance().addToLayer(0, toro);
-		LayerFactory.getInstance().setDepth(50);
-		LayerFactory.getInstance().setReference(0);
-		LayerFactory.getInstance().setReferenceCoordinate(toro.coord);
+	public Taureau(final PlanVector coord, final DebugDraw debug,
+			final Body body, final DimensionDrawable drawable) {
+		super(coord, debug, body, drawable);
+		toro = null;
 	}
 
 	public void addToLayer() {
 		LayerFactory.getInstance().addToLayer(0, toro);
 	}
 
-	public void update(int delta) {
+	public void update(final int delta) {
+
+	}
+
+	public void controller(final GameContainer gc) {
+		// slike
+
+	}
+
+	public void playSound() {
+		Sound fx;
+		try {
+			fx = new Sound("res/explosion.wav");
+			fx.play(); // Lance le son
+			fx.play(1.0f, 0.5f); // Dï¿½finis le pitch(1.0) et le volume (0.5)
+		} catch (final SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Music musique;
+		try {
+			musique = new Music("res/maMusique.ogg");
+			musique.loop(); // Joue la musique en boucle
+			musique.setPosition(musique.getPosition() + 5); // Avance de 5s
+		} catch (final SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void moveUp() {
+
+	}
+
+	public void moveLeft() {
+
+	}
+
+	@Override
+	public void gUpdate(final int delta, final boolean condition) {
 		toro.coord.addLocal(new Vector2f(0, .6f * delta));
 
 		// int ID_CONTROLEUR = 0;
@@ -47,41 +88,20 @@ public class Taureau extends ObjetScene {
 			System.out.println("Left Released");
 		}
 
-	}
+		//
+		final GameContainer container = IV.container;
+		final Input input = container.getInput();
 
-	public void controller(GameContainer gc) {
-		// slike
-
-	}
-
-	public void playSound() {
-		Sound fx;
-		try {
-			fx = new Sound("res/explosion.wav");
-			fx.play(); // Lance le son
-			fx.play(1.0f, 0.5f); // Définis le pitch(1.0) et le volume (0.5)
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (input.isKeyPressed(Commands.input.KEY_LEFT)) {
+			moveLeft();
 		}
-
-		Music musique;
-		try {
-			musique = new Music("res/maMusique.ogg");
-			musique.loop(); // Joue la musique en boucle
-			musique.setPosition(musique.getPosition() + 5); // Avance de 5s
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (input.isKeyPressed(Commands.input.KEY_RIGHT)) {
+			moveRight();
 		}
-
-	}
-
-	public void moveUp() {
-
-	}
-
-	public void moveLeft() {
+		if (input.isKeyPressed(Commands.input.KEY_UP)) {
+			moveUp();
+		}
+		// System.out.println("gUpdate");
 
 	}
 
