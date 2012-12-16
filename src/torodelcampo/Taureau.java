@@ -1,15 +1,14 @@
 package torodelcampo;
 
-import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.geom.Vector2f;
 
 import com.alnaiyr.commands.Commands;
 import com.alnaiyr.coordinates.PlanVector;
@@ -22,9 +21,8 @@ public class Taureau extends JboxEntity {
 	// Direction direction;
 	private final Animation	toro;
 
-	public Taureau(final PlanVector coord, final DebugDraw debug) {
-		super(coord, debug,
-				new Animation(ToroSpriteSheet.TORO.spritesheet, 200));
+	public Taureau(final PlanVector coord) {
+		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200));
 		toro = (Animation) super.drawable;
 
 		final FixtureDef fd = new FixtureDef();
@@ -34,19 +32,19 @@ public class Taureau extends JboxEntity {
 
 		final BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
-		bd.position = (Vec2) debug.getScreenToWorld(toro.lay.focus.coord.x(),
-				toro.lay.focus.coord.y());
+		bd.position = (Vec2) SceneCreator.debug.getScreenToWorld(coord.x(),
+				coord.y());
 
 		bd.angle = 5f;
-		ground = world.createBody(bd);
+		final Body tor = SceneCreator.world.createBody(bd);
 
 		final PolygonShape shape = new PolygonShape();
 		shape.setAsBox(.8f, .8f);
 		// shape.setRadius(.06f);
 
 		fd.shape = shape;
-
-		ground.createFixture(fd);
+		tor.createFixture(fd);
+		body = tor;
 	}
 
 	public void controller(final GameContainer gc) {
@@ -64,7 +62,7 @@ public class Taureau extends JboxEntity {
 
 	@Override
 	public void gUpdate(final int delta, final boolean condition) {
-		coord.addLocal(new Vector2f(0, .6f * delta));
+		super.gUpdate(delta, condition);
 
 		toro.update(delta);
 

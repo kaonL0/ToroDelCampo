@@ -35,16 +35,18 @@ public final class ParallaxLayerContainer implements Updatable, Renderable,
 	 * 
 	 *----------------------*/
 
-	private final List<Layer>	layers;
-	private final List<Float>	z;
+	private static final boolean	parallax	= false;
 
-	public float				zDistance	= 50;
+	private final List<Layer>		layers;
+	private final List<Float>		z;
 
-	public PlanVector			center		= IV.center;
+	public float					zDistance	= 50;
 
-	public Layer				reference;
+	public PlanVector				center		= IV.center;
 
-	private final PlanVector	thetas		= new Vec2();
+	public Layer					reference;
+
+	private final PlanVector		thetas		= new Vec2();
 
 	/*---------------------
 	 * 
@@ -154,18 +156,20 @@ public final class ParallaxLayerContainer implements Updatable, Renderable,
 				(reference.focus.coord.y() - center.y()) / zDistance);
 
 		for (int i = layers.size() - 1; i > layers.indexOf(reference); i--) {
-			layers.get(i).focus.coord.set(center.x() + layers.get(i).getDepth()
-					* thetas.x(), center.y() + layers.get(i).getDepth()
-					* thetas.y());
+			if (parallax)
+				layers.get(i).focus.coord.set(center.x()
+						+ layers.get(i).getDepth() * thetas.x(), center.y()
+						+ layers.get(i).getDepth() * thetas.y());
 			layers.get(i).update(delta, condition);
 		}
 
 		reference.update(delta, condition);
 
 		for (int i = layers.indexOf(reference) - 1; i >= 0; i--) {
-			layers.get(i).focus.coord.set(center.x() + layers.get(i).getDepth()
-					* thetas.x(), center.y() + layers.get(i).getDepth()
-					* thetas.y());
+			if (parallax)
+				layers.get(i).focus.coord.set(center.x()
+						+ layers.get(i).getDepth() * thetas.x(), center.y()
+						+ layers.get(i).getDepth() * thetas.y());
 			layers.get(i).update(delta, condition);
 		}
 	}

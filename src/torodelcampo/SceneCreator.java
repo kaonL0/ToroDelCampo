@@ -13,6 +13,7 @@ import org.newdawn.slick.Graphics;
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.GraphicEntity;
 import com.alnaiyr.states.GameplayState2;
+import com.alnaiyr.states.State;
 import com.alnaiyr.utilities.debug.jbox2D.SlickDebugDraw;
 
 public class SceneCreator extends GraphicEntity {
@@ -21,21 +22,20 @@ public class SceneCreator extends GraphicEntity {
 	public float			hz				= 60;
 
 	static final int		ID_CONTROLEUR	= 0;
-
 	static final boolean	debugging		= true;
-
 	static World			world;
+	static SlickDebugDraw	debug;
+
+	private final State		state;
 
 	List<Scene>				scenes;
 	Scene					currentScene;
 	Taureau					taureau;
 
-	public SlickDebugDraw	debug;
-
 	public SceneCreator(final PlanVector coord, final float width,
-			final float height) {
+			final float height, final State state) {
 		super(coord, width, height);
-		// TODO Auto-generated constructor stub
+		this.state = state;
 	}
 
 	public SceneCreator(final GameplayState2 gps, final GameContainer container) {
@@ -49,6 +49,7 @@ public class SceneCreator extends GraphicEntity {
 
 		world = new World(new Vec2(0, -5f));
 		world.setDebugDraw(debug);
+		state = gps;
 	}
 
 	/**
@@ -89,7 +90,6 @@ public class SceneCreator extends GraphicEntity {
 
 	@Override
 	public void gUpdate(final int delta, final boolean condition) {
-		world.drawDebugData();
 
 		// toro.coord.addLocal(new Vector2f(0, .6f * delta));
 
@@ -120,7 +120,10 @@ public class SceneCreator extends GraphicEntity {
 
 	@Override
 	public void render(final Graphics g, final GameContainer container) {
+		g.pushTransform();
+		state.getReference().focus.render(g, container);
 		world.drawDebugData();
+		g.popTransform();
 	}
 
 }

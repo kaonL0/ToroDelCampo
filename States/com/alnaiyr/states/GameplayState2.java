@@ -3,11 +3,12 @@ package com.alnaiyr.states;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import torodelcampo.SceneCreator;
+import torodelcampo.Taureau;
 
-import com.alnaiyr.display.impl.advanced.NullEntity;
 import com.alnaiyr.generator.layers.LayerFactory;
 
 /**
@@ -37,7 +38,8 @@ public class GameplayState2 extends State {
 	// public float elapsedTime = 0;
 	// private RandomLuckCondition rnd;
 
-	SceneCreator	sceneCreator	= null;
+	public SceneCreator	sceneCreator	= null;
+	private Taureau		tor;
 
 	/* **********************************************
 	 * 
@@ -77,10 +79,15 @@ public class GameplayState2 extends State {
 	@Override
 	public void initLayerable(final GameContainer container,
 			final StateBasedGame game) throws SlickException {
-		LayerFactory.getInstance().addToLayer(0, NullEntity.instance);
 		LayerFactory.getInstance().setDepth(50);
 		LayerFactory.getInstance().setReference(0);
 		sceneCreator = new SceneCreator(this, container);
+
+		tor = new Taureau(new Vector2f(.5f, 0, true));
+
+		LayerFactory.getInstance().addToLayer(0, tor);
+		LayerFactory.getInstance().setReference(0);
+		LayerFactory.getInstance().setReferenceCoordinate(tor.coord);
 
 	}
 

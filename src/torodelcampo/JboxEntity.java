@@ -1,38 +1,25 @@
 package torodelcampo;
 
-import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.dynamics.Body;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 
 import com.alnaiyr.coordinates.PlanVector;
-import com.alnaiyr.display.GraphicEntity;
+import com.alnaiyr.display.impl.basic.DrawEntity;
 import com.alnaiyr.display.renderables.DimensionDrawable;
 
-public abstract class JboxEntity extends GraphicEntity {
+public abstract class JboxEntity extends DrawEntity {
 
-	DebugDraw			debug;
 	Body				body;
 	DimensionDrawable	drawable;
 
-	public JboxEntity(final PlanVector coord, final DebugDraw debug,
-			final DimensionDrawable drawable) {
-		super(coord, drawable.width(), drawable.height());
+	public JboxEntity(final PlanVector coord, final DimensionDrawable drawable) {
+		super(coord, drawable);
 		this.drawable = drawable;
 	}
 
 	@Override
-	public int width() {
-		return drawable.width();
+	public void gUpdate(final int delta, final boolean condition) {
+		super.gUpdate(delta, condition);
+		coord.set(SceneCreator.debug.getWorldToScreen(body.getWorldCenter()));
 	}
 
-	@Override
-	public int height() {
-		return drawable.height();
-	}
-
-	@Override
-	public void render(final Graphics g, final GameContainer container) {
-		drawable.draw(debug.getWorldToScreen(body.getWorldCenter()));
-	}
 }
