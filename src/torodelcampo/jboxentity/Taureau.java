@@ -22,10 +22,11 @@ public class Taureau extends JboxEntity {
 
 	// Direction direction;
 	private final Animation	toro;
+	Body					tete;
 
 	public Taureau(final PlanVector coord) {
 		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200)
-				.getScaledCopy(.2f));
+				.getScaledCopy(.3f));
 		toro = (Animation) super.drawable;
 
 		final FixtureDef fd = new FixtureDef();
@@ -37,24 +38,53 @@ public class Taureau extends JboxEntity {
 		bd.type = BodyType.DYNAMIC;
 		bd.position = (Vec2) SceneCreator.debug.getScreenToWorld(coord.x(),
 				coord.y());
-
+		bd.angle = 0f;
 		final Body tor = SceneCreator.world.createBody(bd);
+
+		// BodyDef bodyDef = new BodyDef();
 
 		final PolygonShape shape = new PolygonShape();
 
-		shape.setAsBox(.8f, .8f);
-		// shape.setRadius(.06f);
+		shape.setAsBox(.6f, 1.2f);
 
 		fd.shape = shape;
 		tor.createFixture(fd);
-
 		body = tor;
+
+		/*
+		 * 
+		 * final FixtureDef fdTete = new FixtureDef(); fdTete.restitution = 0f;
+		 * fdTete.friction = 1f; fdTete.density = 2f;
+		 * 
+		 * final BodyDef bdTete = new BodyDef(); bdTete.type = BodyType.DYNAMIC;
+		 * bdTete.position = (Vec2)
+		 * SceneCreator.debug.getScreenToWorld(coord.x(), coord.y()-30);
+		 * bdTete.angle = 0f; tete = SceneCreator.world.createBody(bdTete);
+		 * 
+		 * //final PolygonShape shape = new PolygonShape(); final CircleShape
+		 * shapeTete = new CircleShape(); //shape.setAsBox(1.8f, 1.8f);
+		 * shapeTete.setRadius(0.5f);
+		 * 
+		 * fdTete.shape = shapeTete; tete.createFixture(fdTete);
+		 * 
+		 * RevoluteJointDef jointDef = new RevoluteJointDef(); //Vec2 basTete =
+		 * tete.getWorldCenter(); //basTete = basTete.add(new Vec2(1,1));
+		 * 
+		 * Vec2 anchorTete = tete.getLocalCenter(); // new Vec2(0, 0); Vec2
+		 * anchorCorps = body.getLocalCenter(); //new Vec2(0, 0);
+		 * jointDef.localAnchorA = anchorTete; jointDef.localAnchorB =
+		 * anchorCorps; jointDef.initialize(body, tete, tete.getWorldCenter());
+		 * 
+		 * //jointDef.lowerAngle = -0.25f * 3.14f; // -45 degrees
+		 * //jointDef.upperAngle = 0.25f * 3.14f; // 45 degrees
+		 * //jointDef.enableLimit = true; //jointDef.maxMotorTorque = 10.0f;
+		 * //jointDef.motorSpeed = 0.0f; //jointDef.enableMotor = true;
+		 * SceneCreator.world.createJoint(jointDef);
+		 * 
+		 * tete.setLinearVelocity(new Vector2f(0, 16f));
+		 */
 		body.setLinearVelocity(new Vector2f(0, 16f));
-	}
-
-	public void controller(final GameContainer gc) {
-		// slike
-
+		body.setFixedRotation(true);
 	}
 
 	public void moveUp() {
@@ -69,8 +99,14 @@ public class Taureau extends JboxEntity {
 	public void gUpdate(final int delta, final boolean condition) {
 		super.gUpdate(delta, condition);
 
+		// coord.set(SceneCreator.debug.getWorldToScreen(tete.getWorldCenter()));
+
 		toro.update(delta);
-		body.setLinearVelocity(new Vector2f(0, 1f));
+
+		body.setLinearVelocity(new Vector2f(0, 8f));
+
+		// tete.setLinearVelocity(new Vector2f(0, 4f));
+		// this.tete.setLinearVelocity(vitesse);
 
 		final GameContainer container = IV.container;
 		final Input input = container.getInput();
@@ -82,23 +118,26 @@ public class Taureau extends JboxEntity {
 
 	public void move(final int direction) {
 		// box
-		System.out.println("");
+		// System.out.println("");
 		Vec2 vitesse = body.getLinearVelocity();
+		// Vec2 vitesseTete = this.body.getLinearVelocity();
 		// System.out.println("v:"+vitesse.toString());
 
-		final float pasLateral = 3.0f;
-		if (direction == Commands.input.KEY_LEFT) {
+		final float pasLateral = 4.0f;
+		if (direction == Commands.input.KEY_RIGHT) {
 			// vitesse.set(vitesse.x+pasLateral, vitesse.y);
-			vitesse = (Vec2) vitesse.addLocal(-pasLateral, 0);
-		} else if (direction == Commands.input.KEY_RIGHT) {
 			vitesse = (Vec2) vitesse.addLocal(pasLateral, 0);
+			// vitesseTete = (Vec2) vitesseTete.addLocal(pasLateral, 0);
+		} else if (direction == Commands.input.KEY_LEFT) {
 			// vitesse.set(vitesse.x-pasLateral, vitesse.y);
-
+			vitesse = (Vec2) vitesse.addLocal(-pasLateral, 0);
+			// vitesseTete = (Vec2) vitesseTete.addLocal(-pasLateral, 0);
 		}
 
 		// System.out.println("positionAnim:"+pos2.toString());
-		System.out.println("v2:" + vitesse.toString());
+		// System.out.println("v2:" + vitesse.toString());
 		body.setLinearVelocity(vitesse);
+		// this.tete.setLinearVelocity(vitesse);
 
 		// PlanVector pos2 = this.coord.getValue();
 		// System.out.println("positionAnim:"+pos2.toString());

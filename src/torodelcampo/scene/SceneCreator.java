@@ -51,7 +51,7 @@ public class SceneCreator extends GraphicEntity {
 	public SceneCreator(final GameplayState2 gps, final GameContainer container) {
 		super(new Vec2(1920, 1080), 1920, 1080);
 
-		world = new World(new Vec2(0, -5f));
+		world = new World(new Vec2(0, .1f));
 		world.setDebugDraw(debug);
 		debugConfig(container);
 		state = gps;
@@ -176,7 +176,11 @@ public class SceneCreator extends GraphicEntity {
 		// state.getReference().focus.render(g, container);
 		focus.render(g, container);
 		for (final Scene scene : currentScenes) {
-			scene.render(g, container);
+			scene.back.draw(scene.coord);
+		}
+		for (final Scene scene : currentScenes) {
+			for (final Personnage per : scene.personnages)
+				per.render(g, container);
 		}
 
 		taureau.render(g, container);

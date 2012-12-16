@@ -18,9 +18,9 @@ public class Personnage extends JboxEntity {
 	private final Animation	perso;
 
 	public Personnage(final PlanVector coord, final float scale) {
-		super(coord, new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 100)
+		super(coord, new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 50)
 				.getScaledCopy(scale));
-		perso = new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 100)
+		perso = new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 50)
 				.getScaledCopy(scale);
 
 		final FixtureDef fd = new FixtureDef();
