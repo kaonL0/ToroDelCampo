@@ -41,6 +41,7 @@ public class Taureau extends JboxEntity {
 		final Body tor = SceneCreator.world.createBody(bd);
 
 		final PolygonShape shape = new PolygonShape();
+
 		shape.setAsBox(.8f, .8f);
 		// shape.setRadius(.06f);
 
