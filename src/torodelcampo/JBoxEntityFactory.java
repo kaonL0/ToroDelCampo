@@ -5,14 +5,9 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
 public class JBoxEntityFactory {
-	final static int HOMME = 1;
-	final static int FEMME = 2;
-	final static int ENFANT = 3;
-	final static int CAISSE = 4;
-	final static int BARRIERE = 5;
 
 	// public JboxEntity getJBoxEntity(int typeObjet) throws Exception {
-	public void getJBoxEntity(int typeObjet) throws Exception {
+	public void getJBoxEntity(final TypeObjet typeObjet) throws Exception {
 		switch (typeObjet) {
 		// case JBoxEntityFactory.HOMME: return ((JboxEntity) new Personnage(0,
 		// 0, false, 0f, 1f, 2f)); break;
@@ -24,10 +19,10 @@ public class JBoxEntityFactory {
 		// 0, true)); break;
 		// case JBoxEntityFactory.BARRIERE: return ((JboxEntity) new Obstacle(0,
 		// 0, true)); break;
-		default:
-			// ((JboxEntity) new Personnage(x, y, isStatic, restitution,
-			// friction, density));
-			break;
+			default:
+				// ((JboxEntity) new Personnage(x, y, isStatic, restitution,
+				// friction, density));
+				break;
 		}
 	}
 

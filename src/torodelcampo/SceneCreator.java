@@ -26,7 +26,7 @@ public class SceneCreator extends GraphicEntity {
 	static World			world;
 	static SlickDebugDraw	debug;
 
-	private final State		state;
+	public static State		state;
 
 	List<Scene>				scenes;
 	Scene					currentScene;
