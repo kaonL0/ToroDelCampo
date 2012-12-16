@@ -1,5 +1,6 @@
 package torodelcampo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.newdawn.slick.geom.Vector2f;
@@ -15,11 +16,11 @@ public class Scene {
 	List<Obstacle>		obstacles;
 	GraphicEntity		back;
 
-	Scene() {
-
+	public Scene(final Obstacle... obs) {
 		back = new DrawEntity(new Vector2f(-.38f, 0, true), false,
 				ToroImage.BACKGROUND.image.getScaledCopy(4));
-		LayerFactory.getInstance().addToLayer(48, back);
-
+		LayerFactory.getInstance().addToLayer(0, back);
+		obstacles = Arrays.asList(obs);
 	}
+
 }

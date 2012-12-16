@@ -83,7 +83,7 @@ public class GameplayState2 extends State {
 		LayerFactory.getInstance().setReference(0);
 		sceneCreator = new SceneCreator(this, container);
 
-		tor = new Taureau(new Vector2f(.5f, 0, true));
+		tor = new Taureau(new Vector2f(.5f, 5.8f, true));
 
 		LayerFactory.getInstance().addToLayer(0, tor);
 		LayerFactory.getInstance().setReference(0);

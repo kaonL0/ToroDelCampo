@@ -23,7 +23,8 @@ public class Taureau extends JboxEntity {
 	private final Animation	toro;
 
 	public Taureau(final PlanVector coord) {
-		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200));
+		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200)
+				.getScaledCopy(.4f));
 		toro = (Animation) super.drawable;
 
 		final FixtureDef fd = new FixtureDef();
@@ -68,7 +69,7 @@ public class Taureau extends JboxEntity {
 		super.gUpdate(delta, condition);
 
 		toro.update(delta);
-
+		body.setLinearVelocity(new Vector2f(0, 16f));
 		// int ID_CONTROLEUR = 0;
 		// Input input = gc.getInput();
 		// if (input.isControllerLeft(ID_CONTROLEUR)

@@ -129,19 +129,23 @@ public final class ParallaxLayerContainer implements Updatable, Renderable,
 
 	@Override
 	public void render(final Graphics g, final GameContainer container) {
+		if (!parallax)
+			reference.focus.render(g, container);
 		for (int i = layers.size() - 1; i > layers.indexOf(reference); i--) {
-			g.pushTransform();
-			layers.get(i).focus.render(g, container);
+			if (parallax) {
+				g.pushTransform();
+				layers.get(i).focus.render(g, container);
+			}
 			layers.get(i).render(g, container);
-
-			g.popTransform();
+			if (parallax)
+				g.popTransform();
 		}
+		if (parallax)
+			g.pushTransform();
 
-		g.pushTransform();
-
-		// reference.focus.render(g, container);
 		reference.render(g, container);
-		g.popTransform();
+		if (parallax)
+			g.popTransform();
 
 		for (int i = layers.indexOf(reference) - 1; i >= 0; i--) {
 			g.pushTransform();

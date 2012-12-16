@@ -124,6 +124,7 @@ public class SceneCreator extends GraphicEntity {
 		state.getReference().focus.render(g, container);
 		world.drawDebugData();
 		g.popTransform();
+
 	}
 
 }
