@@ -140,12 +140,11 @@ public final class ParallaxLayerContainer implements Updatable, Renderable,
 			if (parallax)
 				g.popTransform();
 		}
-		if (parallax)
-			g.pushTransform();
+
+		g.pushTransform();
 
 		reference.render(g, container);
-		if (parallax)
-			g.popTransform();
+		g.popTransform();
 
 		for (int i = layers.indexOf(reference) - 1; i >= 0; i--) {
 			g.pushTransform();

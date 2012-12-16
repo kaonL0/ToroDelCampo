@@ -15,6 +15,7 @@ import torodelcampo.jboxentity.Taureau;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.GraphicEntity;
+import com.alnaiyr.display.camera.Focus;
 import com.alnaiyr.states.GameplayState2;
 import com.alnaiyr.states.State;
 import com.alnaiyr.utilities.debug.jbox2D.SlickDebugDraw;
@@ -34,6 +35,8 @@ public class SceneCreator extends GraphicEntity {
 	List<Scene>						currentScenes;
 	public Taureau					taureau;
 
+	private Focus					focus;
+
 	public SceneCreator(final PlanVector coord, final float width,
 			final float height, final State state) {
 		super(coord, width, height);
@@ -51,9 +54,11 @@ public class SceneCreator extends GraphicEntity {
 		// taureau = new Taureau();
 		currentScenes = new ArrayList<Scene>();
 		currentScenes.add(0, EnumScene.SCENE1.scene);
-		currentScenes.get(0).init(new Vec2());
+		currentScenes.get(0).init(new Vector2f(.3f, 0, true));
 
 		taureau = new Taureau(new Vector2f(.5f, .8f, true));
+
+		focus = new Focus(taureau.coord);
 	}
 
 	/**
@@ -125,15 +130,15 @@ public class SceneCreator extends GraphicEntity {
 
 	@Override
 	public void render(final Graphics g, final GameContainer container) {
-
+		g.pushTransform();
 		// state.getReference().focus.render(g, container);
-
+		focus.render(g, container);
 		for (final Scene scene : currentScenes) {
 			scene.render(g, container);
 		}
 
 		taureau.render(g, container);
 		world.drawDebugData();
-		g.resetTransform();
+		g.popTransform();
 	}
 }

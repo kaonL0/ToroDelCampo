@@ -45,8 +45,9 @@ public class Scene extends GraphicEntity {
 
 			final EdgeShape sh = new EdgeShape();
 			sh.set((Vec2) SceneCreator.debug.getScreenToWorld(seg.getFrom()
-					.addLocal(vec)), (Vec2) SceneCreator.debug
-					.getScreenToWorld(seg.getTo().addLocal(vec)));
+					.clone().addLocal(vec)),
+					(Vec2) SceneCreator.debug.getScreenToWorld(seg.getTo()
+							.clone().addLocal(vec)));
 			bod.createFixture(sh, 0);
 		}
 

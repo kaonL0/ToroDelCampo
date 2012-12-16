@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import torodelcampo.jboxentity.Taureau;
 import torodelcampo.scene.SceneCreator;
 
+import com.alnaiyr.display.impl.advanced.NullEntity;
 import com.alnaiyr.generator.layers.LayerFactory;
 
 /**
@@ -79,7 +80,7 @@ public class GameplayState2 extends State {
 	public void initLayerable(final GameContainer container,
 			final StateBasedGame game) throws SlickException {
 		sceneCreator = new SceneCreator(this, container);
-		LayerFactory.getInstance().addToLayer(0, sceneCreator);
+		LayerFactory.getInstance().addToLayer(0, NullEntity.instance);
 		LayerFactory.getInstance().setDepth(0);
 		LayerFactory.getInstance().setReference(0);
 
@@ -88,13 +89,13 @@ public class GameplayState2 extends State {
 	@Override
 	public void renderIt(final GameContainer container,
 			final StateBasedGame game, final Graphics g) throws SlickException {
-
+		sceneCreator.render(g, container);
 	}
 
 	@Override
 	public void updateIt(final GameContainer container,
 			final StateBasedGame game, final int delta) throws SlickException {
-
+		sceneCreator.gUpdate(delta, true);
 	}
 
 	@Override
