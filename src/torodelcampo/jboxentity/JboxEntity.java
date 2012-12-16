@@ -10,7 +10,7 @@ import com.alnaiyr.display.renderables.DimensionDrawable;
 
 public abstract class JboxEntity extends DrawEntity {
 
-	Body				body;
+	public Body			body;
 	DimensionDrawable	drawable;
 
 	public JboxEntity(final PlanVector coord, final DimensionDrawable drawable) {
@@ -20,8 +20,10 @@ public abstract class JboxEntity extends DrawEntity {
 
 	@Override
 	public void gUpdate(final int delta, final boolean condition) {
-		super.gUpdate(delta, condition);
-		coord.set(SceneCreator.debug.getWorldToScreen(body.getWorldCenter()));
+		// super.gUpdate(delta, condition);
+
+		if (body != null)
+			coord.set(SceneCreator.debug.getWorldToScreen(body.getWorldCenter()));
 	}
 
 }

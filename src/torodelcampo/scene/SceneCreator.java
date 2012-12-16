@@ -7,6 +7,7 @@ import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
@@ -19,6 +20,7 @@ import com.alnaiyr.display.GraphicEntity;
 import com.alnaiyr.display.camera.Focus;
 import com.alnaiyr.general.IV;
 import com.alnaiyr.math.MathU;
+import com.alnaiyr.ressources.angelcodefont.ToroAngelCodeFont;
 import com.alnaiyr.states.GameplayState2;
 import com.alnaiyr.states.State;
 import com.alnaiyr.utilities.debug.jbox2D.SlickDebugDraw;
@@ -34,9 +36,10 @@ public class SceneCreator extends GraphicEntity {
 	public static SlickDebugDraw	debug;
 
 	public static State				state;
+	public static int				score;
 
 	List<Scene>						currentScenes;
-	public Taureau					taureau;
+	public static Taureau			taureau;
 
 	private Focus					focus;
 
@@ -51,7 +54,7 @@ public class SceneCreator extends GraphicEntity {
 	public SceneCreator(final GameplayState2 gps, final GameContainer container) {
 		super(new Vec2(1920, 1080), 1920, 1080);
 
-		world = new World(new Vec2(0, .1f));
+		world = new World(new Vec2(0, .4f));
 		world.setDebugDraw(debug);
 		debugConfig(container);
 		state = gps;
@@ -80,6 +83,7 @@ public class SceneCreator extends GraphicEntity {
 		taureau = new Taureau(new Vector2f(.5f, .8f, true));
 
 		focus = new Focus(taureau.coord, 2);
+
 	}
 
 	public Personnage[] createPersonnage(final PlanVector from,
@@ -175,9 +179,11 @@ public class SceneCreator extends GraphicEntity {
 		g.pushTransform();
 		// state.getReference().focus.render(g, container);
 		focus.render(g, container);
+
 		for (final Scene scene : currentScenes) {
 			scene.back.draw(scene.coord);
 		}
+
 		for (final Scene scene : currentScenes) {
 			for (final Personnage per : scene.personnages)
 				per.render(g, container);
@@ -186,5 +192,10 @@ public class SceneCreator extends GraphicEntity {
 		taureau.render(g, container);
 		world.drawDebugData();
 		g.popTransform();
+		g.setColor(Color.black);
+		g.drawRect(IV.vWidth - 150, 0, 200, 200);
+		ToroAngelCodeFont.SQUARE.angelcodefont.drawString(IV.vWidth - 100, 40,
+				Integer.toString(score));
+		g.setColor(Color.white);
 	}
 }

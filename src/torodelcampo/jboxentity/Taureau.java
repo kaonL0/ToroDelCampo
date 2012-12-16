@@ -22,7 +22,6 @@ public class Taureau extends JboxEntity {
 
 	// Direction direction;
 	private final Animation	toro;
-	Body					tete;
 
 	public Taureau(final PlanVector coord) {
 		super(coord, new Animation(ToroSpriteSheet.TORO.spritesheet, 200)
@@ -85,6 +84,7 @@ public class Taureau extends JboxEntity {
 		 */
 		body.setLinearVelocity(new Vector2f(0, 16f));
 		body.setFixedRotation(true);
+
 	}
 
 	public void moveUp() {
@@ -121,7 +121,6 @@ public class Taureau extends JboxEntity {
 		// System.out.println("");
 		Vec2 vitesse = body.getLinearVelocity();
 		// Vec2 vitesseTete = this.body.getLinearVelocity();
-		// System.out.println("v:"+vitesse.toString());
 
 		final float pasLateral = 4.0f;
 		if (direction == Commands.input.KEY_RIGHT) {
@@ -134,16 +133,11 @@ public class Taureau extends JboxEntity {
 			// vitesseTete = (Vec2) vitesseTete.addLocal(-pasLateral, 0);
 		}
 
-		// System.out.println("positionAnim:"+pos2.toString());
-		// System.out.println("v2:" + vitesse.toString());
 		body.setLinearVelocity(vitesse);
 		// this.tete.setLinearVelocity(vitesse);
 
 		// PlanVector pos2 = this.coord.getValue();
-		// System.out.println("positionAnim:"+pos2.toString());
-
 		// PlanVector pos = this.body.getPosition();
-		// System.out.println("pos:"+pos.toString());
 	}
 
 }
