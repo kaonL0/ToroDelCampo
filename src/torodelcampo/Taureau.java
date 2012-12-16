@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Vector2f;
 
 import com.alnaiyr.commands.Commands;
 import com.alnaiyr.coordinates.PlanVector;
@@ -44,7 +45,9 @@ public class Taureau extends JboxEntity {
 
 		fd.shape = shape;
 		tor.createFixture(fd);
+
 		body = tor;
+		body.setLinearVelocity(new Vector2f(0, 16f));
 	}
 
 	public void controller(final GameContainer gc) {

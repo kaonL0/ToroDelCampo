@@ -35,7 +35,7 @@ public final class ParallaxLayerContainer implements Updatable, Renderable,
 	 * 
 	 *----------------------*/
 
-	private static final boolean	parallax	= false;
+	private static final boolean	parallax	= true;
 
 	private final List<Layer>		layers;
 	private final List<Float>		z;
@@ -133,10 +133,12 @@ public final class ParallaxLayerContainer implements Updatable, Renderable,
 			g.pushTransform();
 			layers.get(i).focus.render(g, container);
 			layers.get(i).render(g, container);
+
 			g.popTransform();
 		}
 
 		g.pushTransform();
+
 		// reference.focus.render(g, container);
 		reference.render(g, container);
 		g.popTransform();

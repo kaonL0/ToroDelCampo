@@ -19,7 +19,7 @@ public class Scene {
 
 		back = new DrawEntity(new Vector2f(-.38f, 0, true), false,
 				ToroImage.BACKGROUND.image.getScaledCopy(4));
-		LayerFactory.getInstance().addToLayer(49, back);
+		LayerFactory.getInstance().addToLayer(48, back);
 
 	}
 }
