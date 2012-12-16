@@ -107,7 +107,7 @@ public class GameplayState extends State {
 		perso = new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 200)
 				.getScaledCopy(.4f);
 
-		toro = new AnimationEntity(new Cartesian(1.2f, 6.9f, true), mation);
+		toro = new AnimationEntity(new Cartesian(.5f, .5f, true), mation);
 		back = new DrawEntity(new Vector2f(0f, 0, true), false,
 				ToroImage.BACKGROUND.image.getScaledCopy(4));
 
