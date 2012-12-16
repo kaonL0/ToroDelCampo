@@ -114,6 +114,7 @@ public class Taureau extends JboxEntity {
 			move(Commands.input.KEY_LEFT);
 		if (input.isKeyDown(Commands.input.KEY_RIGHT))
 			move(Commands.input.KEY_RIGHT);
+
 	}
 
 	public void move(final int direction) {

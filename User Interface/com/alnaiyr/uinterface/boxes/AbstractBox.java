@@ -16,6 +16,7 @@ import com.alnaiyr.entity.SelfAddingToLayer;
 import com.alnaiyr.generator.layers.LayerFactory;
 import com.alnaiyr.math.geom.GeomU;
 import com.alnaiyr.ressources.angelcodefont.LailaAngelCodeFont;
+import com.alnaiyr.ressources.angelcodefont.ToroAngelCodeFont;
 
 /**
  * An abstract box, containing a listener, and a graphic condition, on which a
@@ -37,7 +38,7 @@ public abstract class AbstractBox extends AEntity implements Scalable,
 
 	private PlanVector			step		= new Vector2f(0, 0);
 
-	public static AngelCodeFont	font;
+	public static AngelCodeFont	font		= ToroAngelCodeFont.SQUARE.angelcodefont;
 
 	public boolean				selected	= false;
 	public boolean				activated	= false;

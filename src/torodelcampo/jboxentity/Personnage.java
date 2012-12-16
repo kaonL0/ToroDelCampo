@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Sound;
 
 import torodelcampo.scene.SceneCreator;
 
@@ -19,6 +20,7 @@ import com.alnaiyr.ressources.spritesheet.ToroSpriteSheet;
 public class Personnage extends JboxEntity {
 
 	private final Animation	perso;
+	private Sound			sound;
 
 	public Personnage(final PlanVector coord, final float scale) {
 		super(coord, new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 50)
@@ -63,12 +65,22 @@ public class Personnage extends JboxEntity {
 		} else {
 			for (Contact cont = SceneCreator.world.getContactList(); cont != null; cont = cont
 					.getNext()) {
+				if (cont.m_fixtureA.m_body == SceneCreator.taureau.body) {
+					if (cont.m_fixtureB.m_body == body) {
+						SceneCreator.world.destroyBody(body);
+						super.body = null;
+						SceneCreator.score += 1;
+
+						sound.play();
+						break;
+
+					}
+				}
 				if (cont.m_fixtureA.m_body == SceneCreator.taureau.body
-						&& cont.m_fixtureB.m_body == body) {
-					SceneCreator.world.destroyBody(body);
-					super.body = null;
-					SceneCreator.score++;
-					break;
+						&& cont.m_fixtureB.m_body.m_type == BodyType.STATIC
+						|| cont.m_fixtureB.m_body == SceneCreator.taureau.body
+						&& cont.m_fixtureA.m_body.m_type == BodyType.STATIC) {
+					SceneCreator.score -= .005f;
 				}
 
 			}
@@ -76,5 +88,4 @@ public class Personnage extends JboxEntity {
 		}
 
 	}
-
 }

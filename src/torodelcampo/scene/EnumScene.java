@@ -34,13 +34,39 @@ public enum EnumScene {
 	SCENE4(new Scene(ToroImage.BACKGROUND3.image, new LinearSegment(780, 1080,
 			770, 966), new LinearSegment(770, 966, 440, 582),
 			new LinearSegment(440, 582, 436, 528), new LinearSegment(436, 528,
-					776, 172)
+					776, 172), new LinearSegment(776, 172, 780, 0)
 
-			, new LinearSegment(1138, 1080, 1132, 256), new LinearSegment(1132,
-					256, 1140, 982), new LinearSegment(1140, 982, 1114, 918),
-			new LinearSegment(1114, 918, 804, 572), new LinearSegment(804, 572,
-					816, 500), new LinearSegment(816, 500, 1442, 188),
-			new LinearSegment(1442, 188, 1138, 0)
+			, new LinearSegment(1138, 1080, 1132, 968), new LinearSegment(1132,
+					968, 1092, 890), new LinearSegment(1092, 890, 812, 590),
+			new LinearSegment(812, 590, 810, 512), new LinearSegment(810, 512,
+					1094, 246), new LinearSegment(1094, 246, 1142, 162),
+			new LinearSegment(1142, 162, 1138, 0))),
+
+	SCENE5(new Scene(ToroImage.BACKGROUND4.image, new LinearSegment(780, 1080,
+			782, 960), new LinearSegment(782, 960, 1104, 590),
+			new LinearSegment(1104, 590, 1100, 506), new LinearSegment(1100,
+					506, 812, 236), new LinearSegment(812, 236, 772, 170),
+			new LinearSegment(772, 170, 780, 0)
+
+			, new LinearSegment(1148, 990, 1166, 932), new LinearSegment(1166,
+					932, 1480, 582), new LinearSegment(1480, 582, 1473, 500),
+			new LinearSegment(1473, 500, 1152, 188), new LinearSegment(1152,
+					188, 1138, 0))),
+
+	SCENE6(new Scene(ToroImage.BACKGROUND5.image
+
+	, new LinearSegment(780, 1080, 780, 920), new LinearSegment(780, 920, 810,
+			852), new LinearSegment(810, 852, 984, 654), new LinearSegment(984,
+			654, 992, 606), new LinearSegment(992, 606, 974, 530),
+			new LinearSegment(974, 530, 806, 284), new LinearSegment(806, 284,
+					772, 198), new LinearSegment(772, 198, 780, 0)
+
+			, new LinearSegment(1148, 990, 1146, 952), new LinearSegment(1146,
+					952, 1184, 894), new LinearSegment(1184, 894, 1314, 782),
+			new LinearSegment(1314, 782, 1362, 720), new LinearSegment(1362,
+					720, 1364, 652), new LinearSegment(1364, 652, 1284, 470),
+			new LinearSegment(1284, 470, 1164, 260), new LinearSegment(1164,
+					260, 1142, 192), new LinearSegment(1142, 192, 1138, 0)
 
 	));
 
@@ -51,7 +77,7 @@ public enum EnumScene {
 	// new LinearSegment(702, 0, 603, 268),
 	// new LinearSegment(603, 268, 627, 1149)));
 
-	public Scene	scene;
+	public Scene scene;
 
 	private EnumScene(final Scene scene) {
 		this.scene = scene;

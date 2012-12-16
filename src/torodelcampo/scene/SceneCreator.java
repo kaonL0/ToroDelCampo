@@ -10,6 +10,7 @@ import org.jbox2d.dynamics.World;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
 import torodelcampo.jboxentity.Personnage;
@@ -21,6 +22,9 @@ import com.alnaiyr.display.camera.Focus;
 import com.alnaiyr.general.IV;
 import com.alnaiyr.math.MathU;
 import com.alnaiyr.ressources.angelcodefont.ToroAngelCodeFont;
+import com.alnaiyr.sfx.rewrite.FadeInTransition;
+import com.alnaiyr.sfx.rewrite.FadeOutTransition;
+import com.alnaiyr.states.GameStates;
 import com.alnaiyr.states.GameplayState2;
 import com.alnaiyr.states.State;
 import com.alnaiyr.utilities.debug.jbox2D.SlickDebugDraw;
@@ -36,7 +40,7 @@ public class SceneCreator extends GraphicEntity {
 	public static SlickDebugDraw	debug;
 
 	public static State				state;
-	public static int				score;
+	public static float				score;
 
 	List<Scene>						currentScenes;
 	public static Taureau			taureau;
@@ -48,7 +52,7 @@ public class SceneCreator extends GraphicEntity {
 	public SceneCreator(final PlanVector coord, final float width,
 			final float height, final State state) {
 		super(coord, width, height);
-		this.state = state;
+		SceneCreator.state = state;
 	}
 
 	public SceneCreator(final GameplayState2 gps, final GameContainer container) {
@@ -67,16 +71,16 @@ public class SceneCreator extends GraphicEntity {
 
 		currentScenes.get(2).init(
 				new Vector2f(-.026f, 1f, true),
-				createPersonnage(new Vector2f(.5f, 1f, true), new Vector2f(.6f,
-						1f, true), 20));
+				createPersonnage(new Vector2f(.45f, 1f, true), new Vector2f(
+						.48f, 1f, true), 20));
 		currentScenes.get(1).init(
 				new Vector2f(-.026f, -1f, true),
-				createPersonnage(new Vector2f(.5f, -1f, true), new Vector2f(
-						.6f, -1f, true), 20));
+				createPersonnage(new Vector2f(.45f, -1f, true), new Vector2f(
+						.48f, -1f, true), 20));
 		currentScenes.get(0).init(
 				new Vector2f(-.026f, 0, true),
-				createPersonnage(new Vector2f(.5f, 0f, true), new Vector2f(.6f,
-						0f, true), 20));
+				createPersonnage(new Vector2f(.45f, 0f, true), new Vector2f(
+						.48f, 0f, true), 20));
 
 		lastGenerated = new Vector2f(-.026f, -1f, true);
 
@@ -116,10 +120,10 @@ public class SceneCreator extends GraphicEntity {
 			currentScenes.get(currentScenes.size() - 1).init(
 					new Vector2f(-.026f * IV.vWidth, lastGenerated.y() - 1080,
 							false),
-					createPersonnage(new Vector2f(.5f * IV.vWidth,
+					createPersonnage(new Vector2f(.45f * IV.vWidth,
 							lastGenerated.y() - 1080, false), new Vector2f(
-							.6f * IV.vWidth, lastGenerated.y() - 1080, false),
-							20));
+							.48f * IV.vWidth, lastGenerated.y() - 1080, false),
+							10));
 			lastGenerated.addLocal(new Vec2(0, -1080));
 			// currentScenes.remove(0);
 		}
@@ -172,6 +176,20 @@ public class SceneCreator extends GraphicEntity {
 		taureau.gUpdate(delta, true);
 
 		createScene();
+
+		if (score < 0) {
+			score = 0;
+			try {
+				state.leave(IV.container, IV.game);
+				IV.game.addState(GameStates.GAMEOVERSTATE.getState());
+				GameStates.GAMEOVERSTATE.getState().init(IV.container, IV.game);
+				IV.game.enterState(GameStates.GAMEOVERSTATE.getID(),
+						new FadeOutTransition(), new FadeInTransition());
+			} catch (final SlickException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 	@Override
@@ -193,9 +211,9 @@ public class SceneCreator extends GraphicEntity {
 		world.drawDebugData();
 		g.popTransform();
 		g.setColor(Color.black);
-		g.drawRect(IV.vWidth - 150, 0, 200, 200);
-		ToroAngelCodeFont.SQUARE.angelcodefont.drawString(IV.vWidth - 100, 40,
-				Integer.toString(score));
+		g.fillRect(IV.vWidth - 200, 0, 200, 200);
+		ToroAngelCodeFont.SQUARE.angelcodefont.drawString(IV.vWidth - 150, 40,
+				Integer.toString(Math.round(SceneCreator.score)));
 		g.setColor(Color.white);
 	}
 }

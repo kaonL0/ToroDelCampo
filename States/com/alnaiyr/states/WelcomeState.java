@@ -191,9 +191,9 @@ public class WelcomeState extends State {
 		welcomeBox.update(delta, true);
 		if (welcomeBox.isMouseOver() && Commands.isMousePressed(0)) {
 			leave(container, game);
-			game.addState(GameStates.GAMEPLAYSTATE.getState());
-			GameStates.GAMEPLAYSTATE.getState().init(container, game);
-			game.enterState(GameStates.GAMEPLAYSTATE.getID(),
+			game.addState(GameStates.GAMEPLAYSTATE2.getState());
+			GameStates.GAMEPLAYSTATE2.getState().init(container, game);
+			game.enterState(GameStates.GAMEPLAYSTATE2.getID(),
 					new FadeOutTransition(), new FadeInTransition());
 		}
 	}
