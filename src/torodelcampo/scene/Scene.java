@@ -1,4 +1,4 @@
-package torodelcampo;
+package torodelcampo.scene;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +10,9 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+
+import torodelcampo.jboxentity.Obstacle;
+import torodelcampo.jboxentity.Personnage;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.coordinates.container.CoordinateContainerImpl;

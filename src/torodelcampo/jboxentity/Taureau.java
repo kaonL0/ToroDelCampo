@@ -1,4 +1,4 @@
-package torodelcampo;
+package torodelcampo.jboxentity;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
@@ -10,6 +10,8 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
+
+import torodelcampo.scene.SceneCreator;
 
 import com.alnaiyr.commands.Commands;
 import com.alnaiyr.coordinates.PlanVector;
@@ -69,7 +71,7 @@ public class Taureau extends JboxEntity {
 		super.gUpdate(delta, condition);
 
 		toro.update(delta);
-		body.setLinearVelocity(new Vector2f(0, 16f));
+		body.setLinearVelocity(new Vector2f(0, 1f));
 		// int ID_CONTROLEUR = 0;
 		// Input input = gc.getInput();
 		// if (input.isControllerLeft(ID_CONTROLEUR)

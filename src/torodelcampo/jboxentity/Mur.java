@@ -1,8 +1,10 @@
-package torodelcampo;
+package torodelcampo.jboxentity;
 
 import org.jbox2d.dynamics.Body;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+
+import torodelcampo.scene.Scene;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.renderables.DimensionDrawable;

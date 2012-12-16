@@ -1,6 +1,8 @@
-package torodelcampo;
+package torodelcampo.jboxentity;
 
 import org.jbox2d.dynamics.Body;
+
+import torodelcampo.scene.SceneCreator;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.impl.basic.DrawEntity;

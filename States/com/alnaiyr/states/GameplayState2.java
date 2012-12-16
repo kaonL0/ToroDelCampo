@@ -3,11 +3,10 @@ package com.alnaiyr.states;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-import torodelcampo.SceneCreator;
-import torodelcampo.Taureau;
+import torodelcampo.jboxentity.Taureau;
+import torodelcampo.scene.SceneCreator;
 
 import com.alnaiyr.generator.layers.LayerFactory;
 
@@ -79,33 +78,28 @@ public class GameplayState2 extends State {
 	@Override
 	public void initLayerable(final GameContainer container,
 			final StateBasedGame game) throws SlickException {
-		LayerFactory.getInstance().setDepth(50);
-		LayerFactory.getInstance().setReference(0);
 		sceneCreator = new SceneCreator(this, container);
-
-		tor = new Taureau(new Vector2f(.5f, 5.8f, true));
-
-		LayerFactory.getInstance().addToLayer(0, tor);
+		LayerFactory.getInstance().addToLayer(0, sceneCreator);
+		LayerFactory.getInstance().setDepth(0);
 		LayerFactory.getInstance().setReference(0);
-		LayerFactory.getInstance().setReferenceCoordinate(tor.coord);
 
 	}
 
 	@Override
 	public void renderIt(final GameContainer container,
 			final StateBasedGame game, final Graphics g) throws SlickException {
-		sceneCreator.render(g, container);
+
 	}
 
 	@Override
 	public void updateIt(final GameContainer container,
 			final StateBasedGame game, final int delta) throws SlickException {
-		sceneCreator.gUpdate(delta, true);
+
 	}
 
 	@Override
 	public void initLayerDependant(final GameContainer container,
 			final StateBasedGame game) {
-
+		getReference().focus.coord = sceneCreator.taureau.coord;
 	}
 }

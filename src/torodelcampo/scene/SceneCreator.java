@@ -1,4 +1,4 @@
-package torodelcampo;
+package torodelcampo.scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,9 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Vector2f;
+
+import torodelcampo.jboxentity.Taureau;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.GraphicEntity;
@@ -18,19 +21,18 @@ import com.alnaiyr.utilities.debug.jbox2D.SlickDebugDraw;
 
 public class SceneCreator extends GraphicEntity {
 
-	public float			elapsedTime		= 0;
-	public float			hz				= 60;
+	public float					elapsedTime		= 0;
+	public float					hz				= 60;
 
-	static final int		ID_CONTROLEUR	= 0;
-	static final boolean	debugging		= true;
-	static World			world;
-	static SlickDebugDraw	debug;
+	static final int				ID_CONTROLEUR	= 0;
+	static final boolean			debugging		= true;
+	public static World				world;
+	public static SlickDebugDraw	debug;
 
-	public static State		state;
+	public static State				state;
 
-	List<Scene>				scenes;
-	Scene					currentScene;
-	Taureau					taureau;
+	List<Scene>						currentScenes;
+	public Taureau					taureau;
 
 	public SceneCreator(final PlanVector coord, final float width,
 			final float height, final State state) {
@@ -41,15 +43,17 @@ public class SceneCreator extends GraphicEntity {
 	public SceneCreator(final GameplayState2 gps, final GameContainer container) {
 		super(new Vec2(1920, 1080), 1920, 1080);
 
-		// taureau = new Taureau();
-		scenes = new ArrayList<Scene>();
-		scenes.add(0, new Scene());
-
-		debugConfig(container);
-
 		world = new World(new Vec2(0, -5f));
 		world.setDebugDraw(debug);
+		debugConfig(container);
 		state = gps;
+
+		// taureau = new Taureau();
+		currentScenes = new ArrayList<Scene>();
+		currentScenes.add(0, EnumScene.SCENE1.scene);
+		currentScenes.get(0).init(new Vec2());
+
+		taureau = new Taureau(new Vector2f(.5f, .8f, true));
 	}
 
 	/**
@@ -91,8 +95,6 @@ public class SceneCreator extends GraphicEntity {
 	@Override
 	public void gUpdate(final int delta, final boolean condition) {
 
-		// toro.coord.addLocal(new Vector2f(0, .6f * delta));
-
 		elapsedTime += delta;
 
 		// if (rnd.getCondition())
@@ -116,15 +118,22 @@ public class SceneCreator extends GraphicEntity {
 
 		}
 
+		for (final Scene scene : currentScenes)
+			scene.gUpdate(delta, true);
+		taureau.gUpdate(delta, true);
 	}
 
 	@Override
 	public void render(final Graphics g, final GameContainer container) {
-		g.pushTransform();
-		state.getReference().focus.render(g, container);
+
+		// state.getReference().focus.render(g, container);
+
+		for (final Scene scene : currentScenes) {
+			scene.render(g, container);
+		}
+
+		taureau.render(g, container);
 		world.drawDebugData();
-		g.popTransform();
-
+		g.resetTransform();
 	}
-
 }

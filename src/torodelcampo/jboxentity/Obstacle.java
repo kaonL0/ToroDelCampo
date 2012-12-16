@@ -1,16 +1,18 @@
-package torodelcampo;
+package torodelcampo.jboxentity;
 
 import org.jbox2d.dynamics.Body;
+
+import torodelcampo.scene.Scene;
 
 import com.alnaiyr.coordinates.PlanVector;
 import com.alnaiyr.display.renderables.DimensionDrawable;
 
-public class Personnage extends JboxEntity {
+public class Obstacle extends JboxEntity {
 
-	public Personnage(final PlanVector coord, final Body body,
+	public Obstacle(final PlanVector coord, final Scene scene, final Body body,
 			final DimensionDrawable drawable) {
 		super(coord, drawable);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
