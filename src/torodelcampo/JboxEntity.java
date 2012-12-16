@@ -16,9 +16,8 @@ public abstract class JboxEntity extends GraphicEntity {
 	DimensionDrawable	drawable;
 
 	public JboxEntity(final PlanVector coord, final DebugDraw debug,
-			final Body body, final DimensionDrawable drawable) {
+			final DimensionDrawable drawable) {
 		super(coord, drawable.width(), drawable.height());
-		this.body = body;
 		this.drawable = drawable;
 	}
 

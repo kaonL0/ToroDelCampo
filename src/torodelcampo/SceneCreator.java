@@ -24,7 +24,7 @@ public class SceneCreator extends GraphicEntity {
 
 	static final boolean	debugging		= true;
 
-	World					world;
+	static World			world;
 
 	List<Scene>				scenes;
 	Scene					currentScene;

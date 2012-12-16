@@ -10,7 +10,7 @@ public class Obstacle extends JboxEntity {
 
 	public Obstacle(final PlanVector coord, final DebugDraw debug,
 			final Body body, final DimensionDrawable drawable) {
-		super(coord, debug, body, drawable);
+		super(coord, debug, drawable);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -10,7 +10,7 @@ public class Personnage extends JboxEntity {
 
 	public Personnage(final PlanVector coord, final DebugDraw debug,
 			final Body body, final DimensionDrawable drawable) {
-		super(coord, debug, body, drawable);
+		super(coord, debug, drawable);
 		// TODO Auto-generated constructor stub
 	}
 
