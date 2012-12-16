@@ -119,8 +119,7 @@ public class GameplayState extends State {
 
 		debug = new SlickDebugDraw(container);
 		debug.getViewportTranform().setExtents(new Vec2(1920, 1080));
-		debug.getViewportTranform().setCamera(toro.coord.x(), toro.coord.y(),
-				50);
+
 		// debug.getViewportTranform().setCamera(toro.coord.x(), toro.coord.y,
 		// 50);
 
@@ -180,6 +179,7 @@ public class GameplayState extends State {
 	public void renderIt(final GameContainer container,
 			final StateBasedGame game, final Graphics g) throws SlickException {
 		g.pushTransform();
+		lContainer.reference.focus.render(g, container);
 		world.drawDebugData();
 		g.popTransform();
 	}
