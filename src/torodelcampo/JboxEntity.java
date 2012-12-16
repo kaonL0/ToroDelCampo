@@ -35,6 +35,5 @@ public abstract class JboxEntity extends GraphicEntity {
 	@Override
 	public void render(final Graphics g, final GameContainer container) {
 		drawable.draw(debug.getWorldToScreen(body.getWorldCenter()));
-
 	}
 }
