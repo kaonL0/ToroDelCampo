@@ -17,8 +17,10 @@ public enum GameStates {
 
 	WELCOMESTATE(new WelcomeState((byte) 0)),
 
-	GAMEPLAYSTATE(new GameplayState((byte) 2));
-
+	GAMEPLAYSTATE(new GameplayState((byte) 2)),
+			
+	GAMEPLAYSTATE2(new GameplayState2((byte) 4));
+	
 	private GameState	state;
 
 	private GameStates(final GameState state) {

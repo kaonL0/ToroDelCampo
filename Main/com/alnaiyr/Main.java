@@ -87,7 +87,7 @@ public class Main extends StateBasedGame {
 
 		Commands.activate(CommandType.DEBUG);
 		Commands.activate(CommandType.MENU);
-		addState(GameStates.GAMEPLAYSTATE.getState());
+		addState(GameStates.GAMEPLAYSTATE2.getState());
 
 		AbstractBox.font = LailaAngelCodeFont.ARABOLICA.angelcodefont;
 
