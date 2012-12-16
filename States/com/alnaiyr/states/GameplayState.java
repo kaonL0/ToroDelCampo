@@ -107,11 +107,11 @@ public class GameplayState extends State {
 		perso = new Animation(ToroSpriteSheet.HUMAIN.spritesheet, 200)
 				.getScaledCopy(.4f);
 
-		toro = new AnimationEntity(new Cartesian(0f, .8f, true), mation);
-		back = new DrawEntity(new Vector2f(-.38f, 0, true), false,
+		toro = new AnimationEntity(new Cartesian(1.2f, 6.9f, true), mation);
+		back = new DrawEntity(new Vector2f(0f, 0, true), false,
 				ToroImage.BACKGROUND.image.getScaledCopy(4));
 
-		LayerFactory.getInstance().addToLayer(50, back);
+		LayerFactory.getInstance().addToLayer(40, back);
 		LayerFactory.getInstance().addToLayer(0, toro);
 		LayerFactory.getInstance().setDepth(50);
 		LayerFactory.getInstance().setReference(0);
@@ -119,7 +119,10 @@ public class GameplayState extends State {
 
 		debug = new SlickDebugDraw(container);
 		debug.getViewportTranform().setExtents(new Vec2(1920, 1080));
-		debug.getViewportTranform().setCamera(9.6f * 2, -5.4f * 2, 50);
+		debug.getViewportTranform().setCamera(toro.coord.x(), toro.coord.y(),
+				50);
+		// debug.getViewportTranform().setCamera(toro.coord.x(), toro.coord.y,
+		// 50);
 
 		debug.getViewportTranform().setYFlip(true);
 
@@ -135,16 +138,13 @@ public class GameplayState extends State {
 		surf = world.createBody(bd);
 		final EdgeShape sh = new EdgeShape();
 		// sh.m_radius = 50;
-		sh.set(new Vec2(-10, -1), new Vec2(10, -1));
-
+		// sh.set(new Vec2(0, -22f), new Vec2(39, 0f));
+		sh.set((Vec2) debug.getScreenToWorld(0, 0),
+				(Vec2) debug.getScreenToWorld(1920, 1080));
 		surf.createFixture(sh, 0);
-
-		surf.setTransform(new Vec2(-1, -3), 0);
 
 		final Body second = world.createBody(bd);
 
-		sh.set(new Vec2(1, -1), new Vec2(-1, -1));
-		second.createFixture(sh, 2f);
 		rnd = new RandomLuckCondition(1, 10);
 
 	}
@@ -158,7 +158,9 @@ public class GameplayState extends State {
 
 		final BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
-		bd.position = new Vec2(0, 1);
+		bd.position = (Vec2) debug.getScreenToWorld(toro.lay.focus.coord.x(),
+				toro.lay.focus.coord.y());
+
 		bd.angle = 5f;
 		ground = world.createBody(bd);
 
@@ -177,14 +179,15 @@ public class GameplayState extends State {
 	@Override
 	public void renderIt(final GameContainer container,
 			final StateBasedGame game, final Graphics g) throws SlickException {
+		g.pushTransform();
 		world.drawDebugData();
-
+		g.popTransform();
 	}
 
 	@Override
 	public void updateIt(final GameContainer container,
 			final StateBasedGame game, final int delta) throws SlickException {
-		toro.coord.addLocal(new Vector2f(0, .6f * delta));
+		toro.coord.addLocal(new Vector2f(0, -.8f * delta));
 
 		elapsedTime += delta;
 
@@ -202,7 +205,7 @@ public class GameplayState extends State {
 
 		while (b.m_next != null) {
 
-			if (b.getPosition().y() < -6)
+			if (b.getPosition().y() < -60)
 				world.destroyBody(b);
 			b = next;
 			next = b.m_next;
